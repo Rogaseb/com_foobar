@@ -1,0 +1,1 @@
+<h2>Witamy w komponencie Foobar!</h2>
