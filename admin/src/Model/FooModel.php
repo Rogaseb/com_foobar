@@ -4,6 +4,7 @@ namespace FooSpace\Component\Foobar\Administrator\Model;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 class FooModel extends AdminModel
@@ -18,4 +19,17 @@ class FooModel extends AdminModel
 
         return $form;
 	}
+
+    protected function loadFormData()
+    {
+        /** @var \Joomla\CMS\Application\CMSApplication $app */
+        $app  = Factory::getApplication();
+        $data = $app->getUserState('com_foobar.edit.foo.data', []);
+
+        if (empty($data)) {
+            $data = $this->getItem();
+        }
+
+        return $data;
+    }
 }
