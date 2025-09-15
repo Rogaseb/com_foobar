@@ -32,4 +32,9 @@ class FooModel extends AdminModel
 
         return $data;
     }
+
+    public function save($data)
+    {
+        return parent::save($data);
+    }
 }
