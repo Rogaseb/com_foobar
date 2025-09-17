@@ -10,6 +10,11 @@ class HtmlView extends BaseHtmlView
 {
     public function display($tpl = null)
     {
+        /** @var FoosModel $model */
+        $model = $this->getModel();
+
+        $this->items = $model->getItems();
+
         parent::display($tpl); 
     }
 }
