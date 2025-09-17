@@ -1,3 +1,7 @@
+<?php if (empty($this->items)) : ?>
+    <?php echo $this->loadTemplate('emptystate'); ?>
+<?php else : ?>
+
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -16,3 +20,4 @@
 		<?php } ?>
 	</tbody>
 </table>
+<?php endif; ?>

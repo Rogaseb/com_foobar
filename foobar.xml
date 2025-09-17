@@ -30,14 +30,19 @@
 		</schemas>
 	</update>
 
+<media destination="com_foobar" folder="admin/media">
+	<folder>css</folder>
+	<folder>images</folder>
+</media>
+
 	<administration>
-        <files folder="admin">
+		<files folder="admin">
 			<folder>forms</folder>
-            <folder>services</folder>
+			<folder>services</folder>
 			<folder>sql</folder>
-            <folder>src</folder>
-            <folder>tmpl</folder>
-        </files>
+			<folder>src</folder>
+			<folder>tmpl</folder>
+		</files>
 		<languages folder="admin">
 			<language tag="pl-PL">language/pl-PL/com_foobar.ini</language>
 			<language tag="pl-PL">language/pl-PL/com_foobar.sys.ini</language>

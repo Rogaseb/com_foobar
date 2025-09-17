@@ -1,0 +1,8 @@
+.icon-foobar::before {
+    content: "";
+    display: inline-block;
+    width: 20rem;
+    height: 14rem;
+    background: url("../images/foobar.svg") no-repeat center center;
+    background-size: contain;
+}
