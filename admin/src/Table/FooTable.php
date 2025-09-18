@@ -43,16 +43,20 @@ class FooTable extends Table
         }
 
         // 4) Sprawdzenie unikalności aliasu
-        $tmp = new self($this->getDbo());
-        if ($tmp->load(['alias' => $this->alias]) && (int) $tmp->id !== (int) $this->id) {
-            if ((int) ($tmp->state ?? 0) === -2) {
+        $table = new static($this->getDbo());
+
+        if ($table->load(['alias' => $this->alias]) && ((int) $table->id !== (int) $this->id || (int) $this->id === 0)) {
+            // Rekord istnieje pod tym aliasem i to nie jesteśmy "my"
+
+            // Jeśli znaleziony rekord jest w koszu
+            if ((int) ($table->state ?? 0) === -2) {
                 throw new \UnexpectedValueException(Text::_('COM_FOOBAR_ERROR_ALIAS_CONFLICT_TRASHED'));
             }
 
             throw new \UnexpectedValueException(Text::_('COM_FOOBAR_ERROR_ALIAS_UNIQUE'));
         }
 
-        // 5) Pozostałe sprawdzenia z klasy bazowej
+        //5) Pozostałe sprawdzenia z klasy bazowej
         return parent::check();
     }
 }

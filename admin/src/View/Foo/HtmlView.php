@@ -20,6 +20,7 @@ class HtmlView extends BaseHtmlView
         $model = $this->getModel();
 
         $this->form = $model->getForm();
+        $this->item = $model->getItem();
 
         $this->addToolbar();
 
@@ -28,10 +29,12 @@ class HtmlView extends BaseHtmlView
 
     protected function addToolbar()
     {
+        $isNew = ($this->item->id == 0);
+
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
-        ToolbarHelper::title(Text::_('COM_FOOBAR_FOO_EDIT'), 'pencil');
-
+        ToolbarHelper::title($isNew ? Text::_('COM_FOOBAR_FOO_EDIT') : Text::_('COM_FOOBAR_FOO_NEW'), 'pencil');
+        
         ToolbarHelper::apply('foo.apply');
         ToolbarHelper::save('foo.save');
         ToolbarHelper::cancel('foo.cancel');
