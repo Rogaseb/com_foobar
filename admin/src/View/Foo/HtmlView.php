@@ -33,7 +33,7 @@ class HtmlView extends BaseHtmlView
 
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
-        ToolbarHelper::title($isNew ? Text::_('COM_FOOBAR_FOO_EDIT') : Text::_('COM_FOOBAR_FOO_NEW'), 'pencil');
+        ToolbarHelper::title($isNew ? Text::_('COM_FOOBAR_FOO_NEW') : Text::_('COM_FOOBAR_FOO_EDIT'), 'pencil');
         
         ToolbarHelper::apply('foo.apply');
         ToolbarHelper::save('foo.save');
