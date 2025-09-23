@@ -18,4 +18,13 @@ class FoosModel extends ListModel
 
         return $query;
     }
+
+    public function getTable($name = 'Foo', $prefix = 'Table', $options = array())
+    {
+        if ($table = $this->_createTable($name, $prefix, $options))
+        {
+            return $table;
+        }
+        return null;
+    }
 }

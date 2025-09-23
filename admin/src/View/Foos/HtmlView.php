@@ -22,6 +22,7 @@ class HtmlView extends BaseHtmlView
         $this->items = $model->getItems();
 
         HTMLHelper::_('behavior.multiselect');
+        
         $this->addToolbar();
 
         if (!\count($this->items) && $model->getIsEmptyState()) {
@@ -34,8 +35,12 @@ class HtmlView extends BaseHtmlView
     protected function addToolbar()
     {
         ToolbarHelper::title(Text::_('COM_FOOBAR_MANAGER_FOOS'), 'pencil');
+
         ToolbarHelper::addNew('foo.add');
         ToolbarHelper::editList('foo.edit');
-        ToolbarHelper::deleteList('', 'foos.delete');
+        
+        ToolbarHelper::publish('foos.publish', 'JTOOLBAR_PUBLISH', true);
+        ToolbarHelper::unpublish('foos.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+        ToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'foos.delete');
     }
 }
