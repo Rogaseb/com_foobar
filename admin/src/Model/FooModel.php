@@ -33,6 +33,17 @@ class FooModel extends AdminModel
         return $data;
     }
 
+    protected function prepareTable($table)
+    {
+        $date = Factory::getDate();
+        $user = $this->getCurrentUser();
+
+        if (empty($table->id)) {
+        $table->created    = $date->toSql();  
+        $table->created_by = (int) ($table->created_by ?: $user->id);
+        }
+    }
+
     public function save($data)
     {
         return parent::save($data);

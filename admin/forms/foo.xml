@@ -1,26 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <form>
-    <field
-        name="id"
-        type="text"
-        label="JGLOBAL_FIELD_ID_LABEL"
-        default="0"
-        class="readonly"
-        readonly="true"
-    />
 
-    <field
-        name="title"
-        type="text"
-        label="JGLOBAL_TITLE"
-        required="true"
-    />
+  <field name="title"
+         type="text"
+         label="JGLOBAL_TITLE"
+         required="true" />
 
     <field
         name="alias"
         type="text"
         label="JFIELD_ALIAS_LABEL"
         description="JFIELD_ALIAS_DESC"
-        hint="JFIELD_ALIAS_PLACEHOLDER"
-    />
+        hint="JFIELD_ALIAS_PLACEHOLDER"/>
+
+  <!-- Zakładka: Szczegóły -->
+    <fieldset name="details" label="COM_FOOBAR_FIELDSET_DETAILS" formstyle="rows">
+      <field name="state"
+             type="list"
+             label="JSTATUS"
+             default="1">
+        <option value="1">JPUBLISHED</option>
+        <option value="0">JUNPUBLISHED</option>
+        <option value="2">JARCHIVED</option>
+        <option value="-2">JTRASHED</option>
+      </field>
+    </fieldset>
+
+  <!-- Zakładka Publikacja -->
+    <fieldset name="publishing" label="COM_FOOBAR_FIELDSET_PUBLISHING">
+      <field
+        name="created"
+        type="calendar"
+        label="JGLOBAL_CREATED_DATE"
+        translateformat="true"
+        showtime="true"
+        filter="user_utc"
+      />
+
+      <field name="created_by"
+            type="user"
+            label="JGLOBAL_FIELD_CREATED_BY_LABEL"
+            validate="UserId" />
+             
+       <field name="id"
+             type="text"
+             label="JGLOBAL_FIELD_ID_LABEL"
+             default="0"
+             class="readonly"
+             readonly="true" />
+    </fieldset>
+
 </form>
