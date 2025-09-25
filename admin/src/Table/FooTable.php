@@ -15,6 +15,9 @@ class FooTable extends Table
     public function __construct(DatabaseInterface $db)
     {
         parent::__construct('#__foobar_foos', 'id', $db);
+
+        $this->setColumnAlias('published', 'state');
+
     }
 
     public function check()
