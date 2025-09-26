@@ -46,6 +46,8 @@
 		<languages folder="admin">
 			<language tag="pl-PL">language/pl-PL/com_foobar.ini</language>
 			<language tag="pl-PL">language/pl-PL/com_foobar.sys.ini</language>
+			<language tag="pl-PL">language/en-GB/com_foobar.ini</language>
+			<language tag="pl-PL">language/en-GB/com_foobar.sys.ini</language>
 		</languages>
 		<menu link="option=com_foobar">COM_FOOBAR_MENU_FOOS</menu>
 	</administration>
