@@ -2,31 +2,23 @@
 
 namespace FooSpace\Component\Foobar\Administrator\View\Foos;
 
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\MVC\View\ListView;
 
 \defined('_JEXEC') or die;
 
-class HtmlView extends BaseHtmlView
+class HtmlView extends ListView
 {
-    public function display($tpl = null)
+    protected $option = 'COM_FOOBAR';
+
+    protected function initializeView()
     {
-        $wa = $this->getDocument()->getWebAssetManager();
-        $wa->registerAndUseStyle('com_foobar.admin', 'media/com_foobar/css/admin.css');
+        parent::initializeView();
 
-        /** @var FoosModel $model */
-        $model = $this->getModel();
-
-        $this->items = $model->getItems();
-
-        HTMLHelper::_('behavior.multiselect');
-        
-        if (!\count($this->items) && $model->getIsEmptyState()) {
-            $this->setLayout('emptystate');
-        }
-
-        parent::display($tpl); 
+        $this->canDo = new class {
+            public function get($action)
+            {
+                return true;
+            }
+        };
     }
 }

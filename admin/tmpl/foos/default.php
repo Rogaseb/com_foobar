@@ -3,7 +3,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
@@ -26,17 +25,24 @@ use Joomla\CMS\Router\Route;
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th><?php echo HTMLHelper::_('grid.checkall'); ?></th>
-					<th>ID</th>
-					<th>Nazwa</th>
-					<th>Alias</th>
+					<td class="w-1 text-center">
+						<?php echo HTMLHelper::_('grid.checkall'); ?>
+					</td>
+					<th scope="col">
+						<?php echo Text::_('JGLOBAL_TITLE'); ?>
+					</th>
+					<th scope="col" class="d-none d-md-table-cell">
+						<?php echo Text::_('JFIELD_ALIAS_LABEL'); ?>
+					</th>
+					<th scope="col" class="w-5 d-none d-md-table-cell">
+						<?php echo Text::_('JGRID_HEADING_ID'); ?>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($this->items as $i => $item) { ?>
 					<tr>
 						<td><?php echo HTMLHelper::_('grid.id', $i, $item->id); ?></td>
-						<td><?php echo (int) $item->id; ?></td>
 						<td>
 							<a href="<?php echo Route::_('index.php?option=com_foobar&task=foo.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
 							<?php echo $this->escape($item->title); ?></a>
@@ -44,6 +50,8 @@ use Joomla\CMS\Router\Route;
 						<td>
 							<?php echo $this->escape($item->alias); ?>
 						</td>
+						<td><?php echo (int) $item->id; ?></td>
+
 					</tr>
 				<?php } ?>
 			</tbody>
