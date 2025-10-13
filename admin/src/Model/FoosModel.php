@@ -5,6 +5,7 @@ namespace FooSpace\Component\Foobar\Administrator\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 
 class FoosModel extends ListModel
 {
@@ -13,18 +14,48 @@ class FoosModel extends ListModel
         $db    = $this->getDatabase();
         $query = $db->getQuery(true);
 
-        $query->select('*')
+        $query->select([
+                $db->quoteName('a.id'),
+                $db->quoteName('a.title'),
+                $db->quoteName('a.alias'),
+                $db->quoteName('a.state'),
+                $db->quoteName('a.ordering'),
+            ])
             ->from($db->quoteName('#__foobar_foos', 'a'));
+
+        $published = (string) $this->getState('filter.published');
+        if ($published !== '') {
+            $pubInt = (int) $published;
+            $query->where($db->quoteName('a.state') . ' = :pub')
+                ->bind(':pub', $pubInt, ParameterType::INTEGER);
+        } else {
+            $query->where($db->quoteName('a.state') . ' IN (0,1)');
+        }
+
+        $search = (string) $this->getState('filter.search');
+        if ($search !== '') {
+            if (stripos($search, 'id:') === 0) {
+                $id = (int) substr($search, 3);
+                $query->where($db->quoteName('a.id') . ' = :id')
+                    ->bind(':id', $id, ParameterType::INTEGER);
+            } else {
+                $token = '%' . str_replace(' ', '%', trim($search)) . '%';
+                $query->where(
+                    '(' . $db->quoteName('a.title') . ' LIKE :tok1'
+                    . ' OR ' . $db->quoteName('a.alias') . ' LIKE :tok2)'
+                );
+                $query->bind([':tok1', ':tok2'], $token, ParameterType::STRING);
+            }
+        }
 
         return $query;
     }
 
-    public function getTable($name = 'Foo', $prefix = 'Table', $options = array())
+    protected function getStoreId($id = '')
     {
-        if ($table = $this->_createTable($name, $prefix, $options))
-        {
-            return $table;
-        }
-        return null;
+        $id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.published');
+
+        return parent::getStoreId($id);
     }
 }
