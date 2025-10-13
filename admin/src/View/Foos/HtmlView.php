@@ -8,11 +8,14 @@ use Joomla\CMS\MVC\View\ListView;
 
 class HtmlView extends ListView
 {
-    protected $option = 'COM_FOOBAR';
+    protected $option = 'com_foobar';
 
     protected function initializeView()
     {
         parent::initializeView();
+
+        $wa = $this->getDocument()->getWebAssetManager();
+        $wa->useStyle('com_foobar.admin');
 
         $this->canDo = new class {
             public function get($action)

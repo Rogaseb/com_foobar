@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_foobar",
+  "version": "1.0.0",
+  "description": "Media assets for com_foobar",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_foobar.admin",
+      "type": "style",
+      "uri": "media/com_foobar/css/admin.css"
+    }
+  ]
+}
