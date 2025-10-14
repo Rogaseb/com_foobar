@@ -8,7 +8,7 @@
     {
       "name": "com_foobar.admin",
       "type": "style",
-      "uri": "media/com_foobar/css/admin.css"
+      "uri": "com_foobar/admin.css"
     }
   ]
 }
