@@ -7,6 +7,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
+$wa = $this->getDocument()->getWebAssetManager();
+$wa->useScript('table.columns')
+    ->useScript('multiselect');
+
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_foobar&view=foos'); ?>" method="post" name="adminForm" id="adminForm">
@@ -28,13 +34,13 @@ use Joomla\CMS\Router\Route;
                         <?php echo HTMLHelper::_('grid.checkall'); ?>
                     </td>
                     <th scope="col">
-                        <?php echo Text::_('JGLOBAL_TITLE'); ?>
+                        <?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
                     </th>
                     <th scope="col" class="d-none d-md-table-cell">
                         <?php echo Text::_('JFIELD_ALIAS_LABEL'); ?>
                     </th>
                     <th scope="col" class="w-5 d-none d-md-table-cell">
-                        <?php echo Text::_('JGRID_HEADING_ID'); ?>
+                        <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                     </th>
                 </tr>
             </thead>
@@ -49,7 +55,9 @@ use Joomla\CMS\Router\Route;
                         <td>
                             <?php echo $this->escape($item->alias); ?>
                         </td>
-                        <td><?php echo (int) $item->id; ?></td>
+                        <td class="d-none d-md-table-cell">
+                            <?php echo $item->id; ?>
+                        </td>
 
                     </tr>
                 <?php } ?>

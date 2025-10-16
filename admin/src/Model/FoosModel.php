@@ -4,11 +4,25 @@ namespace FooSpace\Component\Foobar\Administrator\Model;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
 
 class FoosModel extends ListModel
 {
+    public function __construct($config = [], ?MVCFactoryInterface $factory = null)
+    {
+        if (empty($config['filter_fields'])) {
+            $config['filter_fields'] = [
+                'a.id','id',
+                'a.title','title',
+                'a.state','state',
+            ];
+        }
+
+        parent::__construct($config, $factory);
+    }
+
     protected function getListQuery()
     {
         $db    = $this->getDatabase();
@@ -48,6 +62,10 @@ class FoosModel extends ListModel
             }
         }
 
+        $orderCol  = $this->state->get('list.ordering', 'a.name');
+        $orderDirn = $this->state->get('list.direction', 'asc');
+        $query->order($db->escape($orderCol . ' ' . $orderDirn));
+
         return $query;
     }
 
@@ -57,5 +75,10 @@ class FoosModel extends ListModel
         $id .= ':' . $this->getState('filter.published');
 
         return parent::getStoreId($id);
+    }
+
+    protected function populateState($ordering = 'a.title', $direction = 'ASC')
+    {
+        parent::populateState($ordering, $direction);
     }
 }
