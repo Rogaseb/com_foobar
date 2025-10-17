@@ -34,7 +34,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
                         <?php echo HTMLHelper::_('grid.checkall'); ?>
                     </td>
                     <th scope="col">
-                        <?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
+                        <?php echo HTMLHelper::_('searchtools.sort','JGLOBAL_TITLE','a.title',$listDirn,$listOrder); ?>
                     </th>
                     <th scope="col" class="d-none d-md-table-cell">
                         <?php echo Text::_('JFIELD_ALIAS_LABEL'); ?>
@@ -48,21 +48,22 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
                 <?php foreach ($this->items as $i => $item) { ?>
                     <tr>
                         <td><?php echo HTMLHelper::_('grid.id', $i, $item->id); ?></td>
-                        <td>
-                            <a href="<?php echo Route::_('index.php?option=com_foobar&task=foo.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
-                            <?php echo $this->escape($item->title); ?></a>
-                        </td>
+                        <th scope="row">
+                            <a href="<?php echo Route::_('index.php?option=com_foobar&task=foo.edit&id='.(int)$item->id); ?>">
+                                <?php echo $this->escape($item->title); ?>
+                            </a>
+                        </th>
                         <td>
                             <?php echo $this->escape($item->alias); ?>
                         </td>
                         <td class="d-none d-md-table-cell">
                             <?php echo $item->id; ?>
                         </td>
-
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
+        <?php echo $this->pagination->getListFooter(); ?>
         <?php endif; ?>
 
         <input type="hidden" name="task" value="">
