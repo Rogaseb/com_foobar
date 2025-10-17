@@ -25,7 +25,7 @@
 			label="JGLOBAL_SORT_BY"
 			statuses="*,0,1,2,-2"
 			class="js-select-submit-on-change"
-			default="a.name ASC"
+			default="a.title ASC"
 			validate="options"
             >
             <option value="">JGLOBAL_SORT_BY</option>

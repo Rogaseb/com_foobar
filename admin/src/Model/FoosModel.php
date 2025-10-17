@@ -17,6 +17,7 @@ class FoosModel extends ListModel
                 'a.id','id',
                 'a.title','title',
                 'a.state','state',
+                'published',
             ];
         }
 
@@ -62,7 +63,7 @@ class FoosModel extends ListModel
             }
         }
 
-        $orderCol  = $this->state->get('list.ordering', 'a.name');
+        $orderCol  = $this->state->get('list.ordering', 'a.title');
         $orderDirn = $this->state->get('list.direction', 'asc');
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
