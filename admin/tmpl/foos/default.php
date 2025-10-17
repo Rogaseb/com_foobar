@@ -33,6 +33,9 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
                     <td class="w-1 text-center">
                         <?php echo HTMLHelper::_('grid.checkall'); ?>
                     </td>
+                    <th scope="col" class="w-1 text-center">
+                        <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
+                    </th>
                     <th scope="col">
                         <?php echo HTMLHelper::_('searchtools.sort','JGLOBAL_TITLE','a.title',$listDirn,$listOrder); ?>
                     </th>
@@ -48,6 +51,9 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
                 <?php foreach ($this->items as $i => $item) { ?>
                     <tr>
                         <td><?php echo HTMLHelper::_('grid.id', $i, $item->id); ?></td>
+                        <td class="text-center">
+                            <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'foos.', true, 'cb'); ?>
+                        </td> 
                         <th scope="row">
                             <a href="<?php echo Route::_('index.php?option=com_foobar&task=foo.edit&id='.(int)$item->id); ?>">
                                 <?php echo $this->escape($item->title); ?>

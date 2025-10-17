@@ -39,12 +39,13 @@ class FoosModel extends ListModel
             ->from($db->quoteName('#__foobar_foos', 'a'));
 
         $published = (string) $this->getState('filter.published');
-        if ($published !== '') {
-            $pubInt = (int) $published;
-            $query->where($db->quoteName('a.state') . ' = :pub')
-                ->bind(':pub', $pubInt, ParameterType::INTEGER);
-        } else {
-            $query->where($db->quoteName('a.state') . ' IN (0,1)');
+
+        if (is_numeric($published)) {
+            $published = (int) $published;
+            $query->where($db->quoteName('a.state') . ' = :published')
+                ->bind(':published', $published, ParameterType::INTEGER);
+        } elseif ($published === '') {
+            $query->where($db->quoteName('a.state') . ' IN (0, 1)');
         }
 
         $search = (string) $this->getState('filter.search');
