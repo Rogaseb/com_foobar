@@ -17,6 +17,7 @@ class FoosModel extends ListModel
                 'a.id','id',
                 'a.title','title',
                 'a.state','state',
+                'ordering', 'a.ordering',
                 'published',
             ];
         }
@@ -65,7 +66,8 @@ class FoosModel extends ListModel
         }
 
         $orderCol  = $this->state->get('list.ordering', 'a.title');
-        $orderDirn = $this->state->get('list.direction', 'asc');
+        $orderDirn = $this->state->get('list.direction', 'ASC');
+
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
@@ -75,6 +77,8 @@ class FoosModel extends ListModel
     {
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.published');
+        $id .= ':' . $this->getState('list.ordering');
+        $id .= ':' . $this->getState('list.direction');
 
         return parent::getStoreId($id);
     }

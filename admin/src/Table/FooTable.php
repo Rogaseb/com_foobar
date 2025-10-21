@@ -46,7 +46,9 @@ class FooTable extends Table
         }
 
         // 4) Sprawdzenie unikalności aliasu
-        $table = new static($this->getDbo());
+        $db = $this->getDatabase();
+
+        $table = new self($db, $this->getDispatcher());
 
         if ($table->load(['alias' => $this->alias]) && ((int) $table->id !== (int) $this->id || (int) $this->id === 0)) {
             // Rekord istnieje pod tym aliasem i to nie jesteśmy "my"
@@ -57,6 +59,15 @@ class FooTable extends Table
             }
 
             throw new \UnexpectedValueException(Text::_('COM_FOOBAR_ERROR_ALIAS_UNIQUE'));
+        }
+
+        if ($this->state < 0) {
+            $this->ordering = 0;
+        } elseif (empty($this->ordering)) {
+            $db             = $this->getDatabase();
+            $this->ordering = $this->getNextOrder(
+                $db->quoteName('state') . ' >= 0'
+            );
         }
 
         //5) Pozostałe sprawdzenia z klasy bazowej
