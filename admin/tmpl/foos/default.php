@@ -11,6 +11,7 @@ use Joomla\CMS\Session\Session;
 $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns')
     ->useScript('multiselect');
+$wa->useStyle('com_foobar.admin');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
